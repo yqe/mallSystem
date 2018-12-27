@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>草原地域特色商城</title>
+
+    <!-- BOOTSTRAP STYLES-->
+    <link href="/css/bootstrap.css" rel="stylesheet" />
+    <!-- FONTAWESOME STYLES-->
+    <link href="/css/font-awesome.css" rel="stylesheet" />
+    <!--CUSTOM BASIC STYLES-->
+    <link href="/css/basic.css" rel="stylesheet" />
+    <!--CUSTOM MAIN STYLES-->
+    <link href="/css/custom.css" rel="stylesheet" />
+    <style type="text/css">
+        .form-group .col-sm-10{
+            width: 35%;
+        }
+        #main-menu h5{
+            color: #aaaaaa;
+        }
+    </style>
+</head>
+<body>
+<div id="wrapper">
+    <nav class="navbar-default navbar-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav" id="main-menu">
+                <li>
+                    <div class="row">
+                        <div class="col-md-6">
+                        </div>
+                        <div class="col-md-6">
+                            <br/>
+                            <h5>你好! [[${admin.name}]]</h5>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a class="active-menu" th:href="@{/checkUser}"><i class="fa fa-dashboard "></i>查看用户列表</a>
+                </li>
+            </ul>
+        </div>
+
+    </nav>
+    <!-- /. NAV SIDE  -->
+    <div id="page-wrapper">
+        <div id="page-inner">
+            <div class="row">
+                <div class="col-md-12">
+                    <a class="btn btn-danger" th:href="@{/login}" style="float: right;margin-left: 10px;">退出</a>
+                    <a class="btn btn-primary"  th:href="@{/checkUser}" style="float: right;;margin-left: 10px;">返回</a>
+                    <h2>用户名：&nbsp;[[${user.name}]]</h2>
+                    <h3>未确认的订单</h3>
+                    <div class="row">
+                        <div class="box-body" style="margin: 50px;width: 90%;">
+                            <table id="ongoingTable" class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>订单编号</th>
+                                    <th>商品名称</th>
+                                    <th>商品数量</th>
+                                    <th>总价</th>
+                                    <th>下单时间</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="order : ${ongoingOrderList}">
+                                    <td th:text="${order.id}"></td>
+                                    <td th:text="${order.goodsName}"></td>
+                                    <td th:text="${order.num}"></td>
+                                    <td th:text="${order.price}"></td>
+                                    <td th:text="${order.date}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <h3>取消的订单</h3>
+                    <div class="row">
+                        <div class="box-body" style="margin: 50px;width: 90%;">
+                            <table id="canceledTable" class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>订单编号</th>
+                                    <th>商品名称</th>
+                                    <th>商品数量</th>
+                                    <th>总价</th>
+                                    <th>下单时间</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="order : ${canceledOrderList}">
+                                    <td th:text="${order.id}"></td>
+                                    <td th:text="${order.goodsName}"></td>
+                                    <td th:text="${order.num}"></td>
+                                    <td th:text="${order.price}"></td>
+                                    <td th:text="${order.date}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <h3>完成的订单</h3>
+                    <div class="row">
+                        <div class="box-body" style="margin: 50px;width: 90%;">
+                            <table id="finishedTable" class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>订单编号</th>
+                                    <th>商品名称</th>
+                                    <th>商品数量</th>
+                                    <th>总价</th>
+                                    <th>下单时间</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="order : ${finishedOrderList}">
+                                    <td th:text="${order.id}"></td>
+                                    <td th:text="${order.goodsName}"></td>
+                                    <td th:text="${order.num}"></td>
+                                    <td th:text="${order.price}"></td>
+                                    <td th:text="${order.date}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /. PAGE WRAPPER  -->
+</div>
+<!-- /. WRAPPER  -->
+<div id="footer-sec">
+    &copy; 草原地域特色商城
+</div>
+<!-- /. FOOTER  -->
+<!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+<!-- JQUERY SCRIPTS -->
+<script src="/js/jquery-1.10.2.js"></script>
+<!-- BOOTSTRAP SCRIPTS -->
+<script src="/js/bootstrap.js"></script>
+<!-- METISMENU SCRIPTS -->
+<script src="/js/jquery.metisMenu.js"></script>
+<!-- CUSTOM SCRIPTS -->
+<script src="/js/custom.js"></script>
+
+<!--<script src="/js/jquery.tablesorter.js"></script>-->
+
+<script src="/js/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="/js/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<!--&lt;!&ndash; SlimScroll &ndash;&gt;-->
+<!--<script src="/js/jquery.slimscroll.min.js"></script>-->
+<!--&lt;!&ndash; FastClick &ndash;&gt;-->
+<!--<script src="/js/bower_components/fastclick/lib/fastclick.js"></script>-->
+
+<script>
+    $(function () {
+        $('#ongoingTable').DataTable();
+        $('#canceledTable').DataTable();
+        $('#finishedTable').DataTable();
+    })
+</script>
+
+
+</body>
+</html>

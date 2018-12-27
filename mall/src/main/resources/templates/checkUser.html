@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>草原地域特色商城</title>
+
+    <!-- BOOTSTRAP STYLES-->
+    <link href="/css/bootstrap.css" rel="stylesheet" />
+    <!-- FONTAWESOME STYLES-->
+    <link href="/css/font-awesome.css" rel="stylesheet" />
+    <!--CUSTOM BASIC STYLES-->
+    <link href="/css/basic.css" rel="stylesheet" />
+    <!--CUSTOM MAIN STYLES-->
+    <link href="/css/custom.css" rel="stylesheet" />
+    <style type="text/css">
+        .form-group .col-sm-10{
+            width: 35%;
+        }
+        #main-menu h5{
+            color: #aaaaaa;
+        }
+    </style>
+</head>
+<body>
+<div id="wrapper">
+    <nav class="navbar-default navbar-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav" id="main-menu">
+                <li>
+                    <div class="row">
+                        <div class="col-md-6">
+                        </div>
+                        <div class="col-md-6">
+                            <br/>
+                            <h5>你好! [[${admin.name}]]</h5>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a class="active-menu" th:href="@{/checkUser}"><i class="fa fa-dashboard "></i>查看用户列表</a>
+                </li>
+            </ul>
+        </div>
+
+    </nav>
+    <!-- /. NAV SIDE  -->
+    <div id="page-wrapper">
+        <div id="page-inner">
+            <div class="row">
+                <div class="col-md-12">
+                    <a class="btn btn-danger" th:href="@{/login}" style="float: right;margin-left: 10px;">退出</a>
+                    <div class="row">
+                        <div class="box-body" style="margin: 50px;width: 90%;">
+                            <table id="userTable" class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>用户ID</th>
+                                    <th>用户名</th>
+                                    <th>用户邮箱</th>
+                                    <th>手机号</th>
+                                    <th>积分</th>
+                                    <th>订单详情</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="user : ${userList}">
+                                    <td th:text="${user.userId}"></td>
+                                    <td th:text="${user.name}"></td>
+                                    <td th:text="${user.email}"></td>
+                                    <td th:text="${user.phone}"></td>
+                                    <td th:text="${user.score}"></td>
+                                    <td><a class="btn btn-primary" role="button" th:href="'/checkUserOrder/'+${user.email}"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /. PAGE WRAPPER  -->
+</div>
+<!-- /. WRAPPER  -->
+<div id="footer-sec">
+    &copy; 草原地域特色商城
+</div>
+<!-- /. FOOTER  -->
+<!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+<!-- JQUERY SCRIPTS -->
+<script src="/js/jquery-1.10.2.js"></script>
+<!-- BOOTSTRAP SCRIPTS -->
+<script src="/js/bootstrap.js"></script>
+<!-- METISMENU SCRIPTS -->
+<script src="/js/jquery.metisMenu.js"></script>
+<!-- CUSTOM SCRIPTS -->
+<script src="/js/custom.js"></script>
+
+<!--<script src="/js/jquery.tablesorter.js"></script>-->
+
+<script src="/js/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="/js/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<!--&lt;!&ndash; SlimScroll &ndash;&gt;-->
+<!--<script src="/js/jquery.slimscroll.min.js"></script>-->
+<!--&lt;!&ndash; FastClick &ndash;&gt;-->
+<!--<script src="/js/bower_components/fastclick/lib/fastclick.js"></script>-->
+
+<script>
+    $(function () {
+        $('#userTable').DataTable();
+    })
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>草原地域特色商城</title>
+
+    <!-- BOOTSTRAP STYLES-->
+    <link href="/css/bootstrap.css" rel="stylesheet" />
+    <!-- FONTAWESOME STYLES-->
+    <link href="/css/font-awesome.css" rel="stylesheet" />
+    <!--CUSTOM BASIC STYLES-->
+    <link href="/css/basic.css" rel="stylesheet" />
+    <!--CUSTOM MAIN STYLES-->
+    <link href="/css/custom.css" rel="stylesheet" />
+    <style type="text/css">
+        .form-group .col-sm-10{
+            width: 35%;
+        }
+        #main-menu h5{
+            color: #aaaaaa;
+        }
+    </style>
+</head>
+<body>
+<div id="wrapper">
+    <nav class="navbar-default navbar-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav" id="main-menu">
+                <li>
+                    <div class="row">
+                        <div class="col-md-6">
+                        </div>
+                        <div class="col-md-6">
+                            <br/>
+                            <h5>你好! [[${user.name}]]</h5>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a class="active-menu" th:href="@{/categories}"><i class="fa fa-dashboard "></i>商品浏览</a>
+                </li>
+                <li>
+                    <a th:href="@{/interest}"><i class="fa fa-dashboard "></i>查看购物车</a>
+                </li>
+                <li>
+                    <a  th:href="@{/ongoingOrder}"><i class="fa fa-dashboard "></i>订单结算</a>
+                </li>
+                <li>
+                    <a th:href="@{/finishedOrder}"><i class="fa fa-dashboard "></i>查看历史订单</a>
+                </li>
+                <li>
+                    <a  th:href="@{/userInfo}"><i class="fa fa-dashboard "></i>个人信息管理</a>
+                </li>
+                <li>
+                    <a  th:href="@{/scoreExchange}"><i class="fa fa-dashboard "></i>积分兑换</a>
+                </li>
+            </ul>
+        </div>
+
+    </nav>
+    <!-- /. NAV SIDE  -->
+    <div id="page-wrapper">
+        <div id="page-inner">
+            <div class="row">
+                <div class="col-md-12">
+                        <a class="btn btn-danger" th:onclick="'javascript:get_time_spent()'" th:href="@{/login}" style="float: right;margin-left: 10px;">退出</a>
+                        <a class="btn btn-primary" th:onclick="'javascript:get_time_spent()'" th:href="@{/categories}" style="float: right;;margin-left: 10px;">返回</a>
+                    <div class="row">
+                        <div class="box-body" style="margin: 50px;width: 90%;">
+                            <table id="goodsTable" class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>商品名称</th>
+                                    <th>商品价格</th>
+                                    <th>商品类型</th>
+                                    <th>已售数量</th>
+                                    <th>加入购物车</th>
+                                    <th>购买</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="goods : ${goodsList}">
+                                    <td th:text="${goods.name}"></td>
+                                    <td th:text="${goods.price}"></td>
+                                    <td th:text="${goods.type}"></td>
+                                    <td th:text="${goods.sellNum}"></td>
+                                    <td><a class="btn btn-primary" role="button" th:href="'/addInterest/'+${goods.id}"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a></td>
+                                    <td>
+                                        <form class="form-horizontal" th:action="@{/generateOrder}"  method="post">
+                                            <input type="hidden" name="id" th:value="${goods.id}"/>
+                                            <label for="num" >购买数量:</label>
+                                            <input type="text" style="width: 80px;" id="num" name="num"/>
+                                            <button type="submit" class="btn btn-primary" role="button">购买</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /. PAGE WRAPPER  -->
+</div>
+<!-- /. WRAPPER  -->
+<div id="footer-sec">
+    &copy; 草原地域特色商城
+</div>
+<!-- /. FOOTER  -->
+<!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+<!-- JQUERY SCRIPTS -->
+<script src="/js/jquery-1.10.2.js"></script>
+<!-- BOOTSTRAP SCRIPTS -->
+<script src="/js/bootstrap.js"></script>
+<!-- METISMENU SCRIPTS -->
+<script src="/js/jquery.metisMenu.js"></script>
+<!-- CUSTOM SCRIPTS -->
+<script src="/js/custom.js"></script>
+
+<!--<script src="/js/jquery.tablesorter.js"></script>-->
+
+<script src="/js/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="/js/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<!--&lt;!&ndash; SlimScroll &ndash;&gt;-->
+<!--<script src="/js/jquery.slimscroll.min.js"></script>-->
+<!--&lt;!&ndash; FastClick &ndash;&gt;-->
+<!--<script src="/js/bower_components/fastclick/lib/fastclick.js"></script>-->
+
+<script>
+    $(function () {
+        $('#goodsTable').DataTable();
+    })
+</script>
+<script>
+    /*<![CDATA[*/
+    var time_start = new Date();
+    var clock_start = time_start.getTime();
+    var scanTime = 0;
+    var type = "[[${type}]]";
+
+    function get_time_spent() {
+        var time_now = new Date();
+        scanTime = ((time_now.getTime() - clock_start)/1000);
+        var timeSet = {"time":scanTime,"type":type};
+        console.log(scanTime);
+        console.log(type);
+        $.ajax({
+            type:'POST',       
+            data:JSON.stringify(timeSet),       
+            contentType :'application/json',       
+            dataType:'json',       
+            url :'/setTime',       
+            success :function(data) {           
+                console.log("OK");        },       
+            error :function(e) {
+                console.log("error");       }})    
+     }
+    /*]]>*/
+</script>
+
+
+</body>
+</html>

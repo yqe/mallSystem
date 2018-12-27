@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>草原地域特色商城</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- BOOTSTRAP STYLES-->
+    <link href="../css/bootstrap.css" rel="stylesheet" />
+    <!-- FONTAWESOME STYLES-->
+    <link href="../css/font-awesome.css" rel="stylesheet" />
+    <!--CUSTOM BASIC STYLES-->
+    <link href="../css/basic.css" rel="stylesheet" />
+    <!--CUSTOM MAIN STYLES-->
+    <link href="../css/custom.css" rel="stylesheet" />
+    <!--SweetAlert-->
+    <link href="../css/sweetalert.css" rel="stylesheet" />
+</head>
+<body background="../img/background.jpg">
+<div style="margin-left: 350px;">
+<h1 >草原地域特色商城</h1>
+<div class="row" style="margin-top: 100px;">
+    <h2>商城简介</h2>
+    <p>本商城致力于销售各类内蒙特色商品，欢迎前来选购</p>
+    <br/>
+    <h3>商城系统主要功能：</h3>
+    <h5>商品分类</h5>
+    <h5>商品订购</h5>
+    <h5>订单修改</h5>
+    <h5>订单查看</h5>
+    <h5>积分兑换</h5>
+</div>
+<div class="row" style="margin-top: 50px;">
+    <a th:href="@{/login}" class="btn btn-primary" role="button">
+        登录入口
+    </a>
+</div>
+</div>
+</body>
+<script th:src="@{/js/jquery-latest.js}"></script>
+<script th:src="@{/js/sweetalert.min.js}"></script>
+</html>

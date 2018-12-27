@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>草原地域特色商城</title>
+
+    <!-- BOOTSTRAP STYLES-->
+    <link href="/css/bootstrap.css" rel="stylesheet" />
+    <!-- FONTAWESOME STYLES-->
+    <link href="/css/font-awesome.css" rel="stylesheet" />
+    <!--CUSTOM BASIC STYLES-->
+    <link href="/css/basic.css" rel="stylesheet" />
+    <!--CUSTOM MAIN STYLES-->
+    <link href="/css/custom.css" rel="stylesheet" />
+    <style type="text/css">
+        .form-group .col-sm-10{
+            width: 35%;
+        }
+        #main-menu h5{
+            color: #aaaaaa;
+        }
+    </style>
+</head>
+<body>
+<div id="wrapper">
+    <nav class="navbar-default navbar-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav" id="main-menu">
+                <li>
+                    <div class="row">
+                        <div class="col-md-6">
+                        </div>
+                        <div class="col-md-6">
+                            <br/>
+                            <h5>你好! [[${user.name}]]</h5>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a th:href="@{/categories}"><i class="fa fa-dashboard "></i>商品浏览</a>
+                </li>
+                <li>
+                    <a th:href="@{/interest}"><i class="fa fa-dashboard "></i>查看购物车</a>
+                </li>
+                <li>
+                    <a class="active-menu" th:href="@{/ongoingOrder}"><i class="fa fa-dashboard "></i>订单结算</a>
+                </li>
+                <li>
+                    <a th:href="@{/finishedOrder}"><i class="fa fa-dashboard "></i>查看历史订单</a>
+                </li>
+                <li>
+                    <a  th:href="@{/userInfo}"><i class="fa fa-dashboard "></i>个人信息管理</a>
+                </li>
+                <li>
+                    <a  th:href="@{/scoreExchange}"><i class="fa fa-dashboard "></i>积分兑换</a>
+                </li>
+            </ul>
+        </div>
+
+    </nav>
+    <!-- /. NAV SIDE  -->
+    <div id="page-wrapper">
+        <div id="page-inner">
+            <div class="row">
+                <div class="col-md-12">
+                    <a class="btn btn-danger" th:href="@{/login}" style="float: right;margin-left: 10px;">退出</a>
+                    <div class="row">
+                        <div class="box-body" style="margin: 50px;width: 90%;">
+                            <table id="goodsTable" class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>订单编号</th>
+                                    <th>商品名称</th>
+                                    <th>商品数量</th>
+                                    <th>总价</th>
+                                    <th>下单时间</th>
+                                    <th>取消</th>
+                                    <th>修改</th>
+                                    <th>确认</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="order : ${orderList}">
+                                    <td th:text="${order.id}"></td>
+                                    <td th:text="${order.goodsName}"></td>
+                                    <td th:text="${order.num}"></td>
+                                    <td th:text="${order.price}"></td>
+                                    <td th:text="${order.date}"></td>
+                                    <td><a class="btn btn-primary" role="button" th:href="'/cancelOrder/'+${order.id}">取消</a></td>
+                                    <td><a class="btn btn-primary" role="button" th:href="'/orderUpdate/'+${order.id}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
+                                    <td><a class="btn btn-primary" role="button" th:href="'/firmOrder/'+${order.id}">购买</a></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /. PAGE WRAPPER  -->
+</div>
+<!-- /. WRAPPER  -->
+<div id="footer-sec">
+    &copy; 草原地域特色商城
+</div>
+<!-- /. FOOTER  -->
+<!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+<!-- JQUERY SCRIPTS -->
+<script src="/js/jquery-1.10.2.js"></script>
+<!-- BOOTSTRAP SCRIPTS -->
+<script src="/js/bootstrap.js"></script>
+<!-- METISMENU SCRIPTS -->
+<script src="/js/jquery.metisMenu.js"></script>
+<!-- CUSTOM SCRIPTS -->
+<script src="/js/custom.js"></script>
+
+<!--<script src="/js/jquery.tablesorter.js"></script>-->
+
+<script src="/js/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="/js/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<!--&lt;!&ndash; SlimScroll &ndash;&gt;-->
+<!--<script src="/js/jquery.slimscroll.min.js"></script>-->
+<!--&lt;!&ndash; FastClick &ndash;&gt;-->
+<!--<script src="/js/bower_components/fastclick/lib/fastclick.js"></script>-->
+
+<script>
+    $(function () {
+        $('#goodsTable').DataTable();
+    })
+</script>
+
+
+</body>
+</html>

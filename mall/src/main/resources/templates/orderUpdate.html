@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>草原地域特色商城</title>
+
+    <!-- BOOTSTRAP STYLES-->
+    <link href="/css/bootstrap.css" rel="stylesheet" />
+    <!-- FONTAWESOME STYLES-->
+    <link href="/css/font-awesome.css" rel="stylesheet" />
+    <!--CUSTOM BASIC STYLES-->
+    <link href="/css/basic.css" rel="stylesheet" />
+    <!--CUSTOM MAIN STYLES-->
+    <link href="/css/custom.css" rel="stylesheet" />
+    <style type="text/css">
+        .form-group .col-sm-10{
+            width: 35%;
+        }
+        #main-menu h5{
+            color: #aaaaaa;
+        }
+    </style>
+</head>
+<body>
+<div id="wrapper">
+    <nav class="navbar-default navbar-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav" id="main-menu">
+                <li>
+                    <div class="row">
+                        <div class="col-md-6">
+                        </div>
+                        <div class="col-md-6">
+                            <br/>
+                            <h5>你好! [[${user.name}]]</h5>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a th:href="@{/categories}"><i class="fa fa-dashboard "></i>商品浏览</a>
+                </li>
+                <li>
+                    <a th:href="@{/interest}"><i class="fa fa-dashboard "></i>查看购物车</a>
+                </li>
+                <li>
+                    <a class="active-menu" th:href="@{/ongoingOrder}"><i class="fa fa-dashboard "></i>订单结算</a>
+                </li>
+                <li>
+                    <a th:href="@{/finishedOrder}"><i class="fa fa-dashboard "></i>查看历史订单</a>
+                </li>
+                <li>
+                    <a  th:href="@{/userInfo}"><i class="fa fa-dashboard "></i>个人信息管理</a>
+                </li>
+                <li>
+                    <a  th:href="@{/scoreExchange}"><i class="fa fa-dashboard "></i>积分兑换</a>
+                </li>
+            </ul>
+        </div>
+
+    </nav>
+    <!-- /. NAV SIDE  -->
+    <div id="page-wrapper">
+        <div id="page-inner">
+            <div class="row">
+                <div class="col-md-12">
+                    <a class="btn btn-danger" th:href="@{/login}" style="float: right;margin-left: 10px;">退出</a>
+                    <a class="btn btn-primary" th:href="@{/ongoingOrder}" style="float: right;;margin-left: 10px;">返回</a>
+                    <h1 class="page-head-line">订单信息</h1>
+                    <form class="form-horizontal" th:action="@{/orderUpdateAction}"  method="post">
+                        <div style="margin-left: 5%" class="row">
+                            <div class="form-group" >
+                                <label for="orderId" class="col-sm-2 control-label">订单编号:</label>
+                                <div class="col-sm-10" style="margin-top: 8px;">
+                                    [[${order.id}]]
+                                    <input class="form-control" type="hidden" id="orderId" name="orderId" th:value="${order.id}" />
+                                </div>
+                            </div>
+                            <div class="form-group" >
+                                <label for="orderGoodsName" class="col-sm-2 control-label">商品名称:</label>
+                                <div class="col-sm-10">
+                                    [[${order.goodsName}]]
+                                    <input class="form-control"  type="hidden" id="orderGoodsName" name="orderGoodsName"  th:value="${order.goodsName}"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="orderNum" class="col-sm-2 control-label">商品数量:</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control"  type="text" id="orderNum" name="orderNum" th:value="${order.num}" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="orderPrice" class="col-sm-2 control-label">订单总价:</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control"  type="text" disabled id="orderPrice" name="orderPrice" th:value="${order.price}" />
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-info" style="margin-left: 17%">修改</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /. PAGE WRAPPER  -->
+</div>
+<!-- /. WRAPPER  -->
+<div id="footer-sec">
+    &copy; 草原地域特色商城
+</div>
+<!-- /. FOOTER  -->
+<!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+<!-- JQUERY SCRIPTS -->
+<script src="/js/jquery-1.10.2.js"></script>
+<!-- BOOTSTRAP SCRIPTS -->
+<script src="/js/bootstrap.js"></script>
+<!-- METISMENU SCRIPTS -->
+<script src="/js/jquery.metisMenu.js"></script>
+<!-- CUSTOM SCRIPTS -->
+<script src="/js/custom.js"></script>
+<!--<script src="/js/easyui.js"></script>-->
+<script src="/js/jquery-latest.js"></script>
+
+
+</body>
+</html>
